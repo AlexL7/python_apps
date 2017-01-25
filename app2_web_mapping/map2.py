@@ -6,7 +6,7 @@ df=pandas.read_csv("Volcanoes-USA.txt") #dataframe object
 
 
 #creates map object (takes aveage of data inputs for start location)
-map = folium.Map(location=[ df['LAT'].mean(),df['LON'].mean()], zoom_start =6,tiles='Stamen Terrain')
+map = folium.Map(location=[ df['LAT'].mean(),df['LON'].mean()], zoom_start =6,tiles='Mapbox bright')
 
 #function to give color based on elevation
 
@@ -29,6 +29,11 @@ def color(elev):
 for lat,lon,name,elev in zip(df['LAT'],df['LON'],df['NAME'],df['ELEV']):
     map.add_child(folium.Marker(location=[lat,lon],popup=name, icon=folium.Icon(color=color(elev),icon_color='green')))
 
+
+# add polygon data to map
+map.add_child(folium.GeoJson(data=open('World_population.json'),
+  name='World Population',
+  style_function=lambda x: {'fillColor': 'green' if x['properties']['POP2005']<=10000000 else 'orange' if 10000000<x['properties']['POP2005']<30000000 else 'red'}))
 
 #manual add markers on the map
   #map.simple_marker(location=[45.3288,-121.6625],popup='Mt.Hood Meadows', marker_color='red')

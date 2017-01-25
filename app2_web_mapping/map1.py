@@ -6,7 +6,7 @@ df=pandas.read_csv("Volcanoes-USA.txt") #dataframe object
 
 
 #creates map object (takes aveage of data inputs for start location)
-map = folium.Map(location=[ df['LAT'].mean(),df['LON'].mean()], zoom_start =6,tiles='Stamen Terrain')
+map=folium.Map(location=[ df['LAT'].mean(),df['LON'].mean()], zoom_start=6,tiles='Stamen Terrain')
 
 #function to give color based on elevation
 
